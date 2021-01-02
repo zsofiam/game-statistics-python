@@ -2,8 +2,9 @@ import export
 import printing
 
 
-RELEASE_YEAR = 2
 TITLE = 0
+RELEASE_YEAR = 2
+GENRE = 3
 
 
 def convert_file_lines_to_list(file_name):
@@ -42,7 +43,13 @@ def get_latest(file_name):
 
 
 def count_by_genre(file_name, genre):
-    pass
+    count = 0
+    lines = convert_file_lines_to_list(file_name)
+    for line in lines:
+        properties = line.split("\t")
+        if properties[GENRE] == genre:
+            count += 1
+    return count
 
 
 def get_line_number_by_title(file_name, title):
@@ -62,4 +69,4 @@ def when_was_top_sold_fps(file_name):
 
 
 if __name__ == '__main__':
-    print(get_latest("game_stat.txt"))
+    print(count_by_genre("game_stat.txt", "Survival game"))
