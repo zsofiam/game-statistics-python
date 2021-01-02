@@ -65,8 +65,22 @@ def get_line_number_by_title(file_name, title):
         raise ValueError
 
 
+def quicksort(list):
+    if not list:
+        return []
+    return (quicksort([x for x in list[1:] if x < list[0]])
+            + [list[0]] +
+            quicksort([x for x in list[1:] if x >= list[0]]))
+
+
 def sort_abc(file_name):
-    pass
+    list_of_titles = []
+    lines = convert_file_lines_to_list(file_name)
+    for line in lines:
+        properties = line.split("\t")
+        list_of_titles.append(properties[TITLE])
+    sorted_list_of_titles = quicksort(list_of_titles)
+    return sorted_list_of_titles
 
 
 def get_genres(file_name):
@@ -78,4 +92,4 @@ def when_was_top_sold_fps(file_name):
 
 
 if __name__ == '__main__':
-    print(get_line_number_by_title("game_stat.txt", "StarLuck"))
+    print(sort_abc("game_stat.txt"))
