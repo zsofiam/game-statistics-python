@@ -70,7 +70,7 @@ def quicksort(list):
         return []
     return (quicksort([x for x in list[1:] if x < list[0]])
             + [list[0]] +
-            quicksort([x for x in list[1:] if x >= list[0]]))
+            quicksort([x for x in list[1:] if x > list[0]]))
 
 
 def sort_abc(file_name):
@@ -84,7 +84,13 @@ def sort_abc(file_name):
 
 
 def get_genres(file_name):
-    pass
+    list_of_genres = []
+    lines = convert_file_lines_to_list(file_name)
+    for line in lines:
+        properties = line.split("\t")
+        list_of_genres.append(properties[GENRE])
+    sorted_list_of_genres = quicksort(list_of_genres)
+    return sorted_list_of_genres
 
 
 def when_was_top_sold_fps(file_name):
@@ -92,4 +98,5 @@ def when_was_top_sold_fps(file_name):
 
 
 if __name__ == '__main__':
+    print(get_genres("game_stat.txt"))
     print(sort_abc("game_stat.txt"))
