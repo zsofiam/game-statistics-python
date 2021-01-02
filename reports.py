@@ -53,7 +53,16 @@ def count_by_genre(file_name, genre):
 
 
 def get_line_number_by_title(file_name, title):
-    pass
+    found = False
+    lines = convert_file_lines_to_list(file_name)
+    for index, line in enumerate(lines):
+        properties = line.split("\t")
+        if properties[TITLE] == title:
+            found = True
+            return index + 1
+    if not found:
+        print("You entered incorrect title!!")
+        raise ValueError
 
 
 def sort_abc(file_name):
@@ -69,4 +78,4 @@ def when_was_top_sold_fps(file_name):
 
 
 if __name__ == '__main__':
-    print(count_by_genre("game_stat.txt", "Survival game"))
+    print(get_line_number_by_title("game_stat.txt", "StarLuck"))
