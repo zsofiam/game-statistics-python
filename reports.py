@@ -2,6 +2,9 @@ import export
 import printing
 
 
+RELEASE_YEAR = 2
+
+
 def count_games(file_name):
     file = open(file_name)
     lines = file.readlines()
@@ -10,7 +13,16 @@ def count_games(file_name):
 
 
 def decide(file_name, year):
-    pass
+    contains = False
+    file = open(file_name)
+    lines = file.readlines()
+    file.close()
+    for line in lines:
+        properties = line.split("\t")
+        if int(properties[RELEASE_YEAR]) == year:
+            contains = True
+            break
+    return contains
 
 
 def get_latest(file_name):
@@ -38,4 +50,4 @@ def when_was_top_sold_fps(file_name):
 
 
 if __name__ == '__main__':
-    print(count_games("game_stat.txt"))
+    print(decide("game_stat.txt", 1984))
