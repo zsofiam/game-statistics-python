@@ -1,5 +1,3 @@
-import export
-import printing
 
 
 TITLE = 0
@@ -119,4 +117,4 @@ def when_was_top_sold_fps(file_name):
 if __name__ == '__main__':
     print(get_genres("game_stat.txt"))
     print(sort_abc("game_stat.txt"))
-    print(when_was_top_sold_fps("game_stat.txt"))
+    print(when_was_top_sold_fps("game_stat_nofpstest.txt"))
