@@ -1,5 +1,4 @@
 
-
 TITLE = 0
 COPIES_SOLD = 1
 RELEASE_YEAR = 2
@@ -7,10 +6,14 @@ GENRE = 3
 
 
 def convert_file_lines_to_list(file_name):
-    file = open(file_name)
-    lines = file.readlines()
-    file.close()
-    return lines
+    try:
+        file = open(file_name)
+    except IOError as e:
+        print("[ERROR]: CANNOT OPEN FILE " + str(e) + " !!!")
+    else:
+        lines = file.readlines()
+        file.close()
+        return lines
 
 
 def get_property_list(lines, property):
@@ -68,9 +71,12 @@ def get_line_number_by_title(file_name, title):
         if title_in_list == title:
             found = True
             return index + 1
-    if not found:
-        print("You entered incorrect title!!")
-        raise ValueError
+    try:
+        if not found:
+            raise ValueError("Incorrect title was entered!")
+    except ValueError:
+        found = "Incorrect title was entered!"
+    return found
 
 
 def quicksort(list):
@@ -107,14 +113,11 @@ def when_was_top_sold_fps(file_name):
             if float(copies_sold[index]) > top_sold:
                 top_sold = float(copies_sold[index])
                 release_year = int(release_years[index])
-    if release_year == -1:
-        print("You entered incorrect genre!!")
-        raise ValueError
-    else:
-        return release_year
-    
+    try:
+        if release_year == -1:
+            raise ValueError("THERE IS NO FIRST PERSON SHOOTER GAME!!")
+    except ValueError:
+        release_year = "THERE IS NO FIRST PERSON SHOOTER GAME!!"
+    return release_year
 
-if __name__ == '__main__':
-    print(get_genres("game_stat.txt"))
-    print(sort_abc("game_stat.txt"))
-    print(when_was_top_sold_fps("game_stat_nofpstest.txt"))
+    

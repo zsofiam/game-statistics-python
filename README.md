@@ -108,3 +108,32 @@ You will learn and practice the following topics:
 - <i class="far fa-exclamation"></i> [Magic numbers](project/curriculum/materials/competencies/clean-code/magic-numbers.md.html)
 - <i class="far fa-exclamation"></i> [Clean code](project/curriculum/materials/competencies/clean-code.md.html)
 - [Command line arguments in Python](https://www.pythonforbeginners.com/system/python-sys-argv)
+
+
+A 2,4,5-ös kérdések megválaszolásához az alábbiak szerint lehetne meghívni az export.py-t.
+
+python3 export.py game_stat.txt output.txt 2012
+python3 export.py game_stat.txt output.txt Simulation
+python3 export.py game_stat.txt output.txt 'Diablo II''
+
+mert ugye az alapvetés az, hogy:
+python3 export.py source_file_name target_file_name input_year input_genre input_title
+
+Ezek alapján az export.py -nak argumentum kezelést kell tudni elsősorban.
+- ellenőrizni a source_file létét és átadni a nevét az adott report függvénynek
+Itt megjegyzem, hogy majd nem ártana valami try-except mutatványt előadni a fileok megnyitásánál a report.py-ban.
+- target_file_name-et létrehozni vagy "appendálni"
+- felismerni, hogy a 3 paraméter közül most melyiket adták meg 3. paraméterként: "input_year input_genre input_title" és a megfelelő report függvények segítségével kiírni az eredményt az output_file-ba.
+- annak is tudatában lenni vagy tudaosítani az export.py futtatójának, hogy a paraméter sorrend kötött. Attól eltérni nem kellene.
+
+Plusz amire még nem gondoltam.
+A fentiekkel már szerintem el tudod kezdeni az export.py leprogramozását.
+Amit eddig beleírtál azt én ilyen formára írnám át, amit persze majd tovább csinosíthatsz, fejleszthetsz.
+
+import reports
+
+try:
+    with open("output.txt", "a") as f:
+        f.writelines(["Hello, here I am"])
+except IOError as e:
+    print("[ERROR]" + str(e) + " !!!")
